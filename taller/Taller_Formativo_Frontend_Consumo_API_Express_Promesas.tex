@@ -1,0 +1,864 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish,es-tabla,es-noshorthands]{babel}
+\usepackage{geometry}
+\geometry{margin=0.68in, top=0.85in, bottom=0.78in, headheight=36pt, headsep=14pt}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{array}
+\usepackage{enumitem}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{lastpage}
+\usepackage{setspace}
+\usepackage{listings}
+\usepackage{tcolorbox}
+
+% Tipografía institucional Icesi (Sans-Serif Helvetica)
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+
+% Interlineado aumentado un 30% (setstretch 1.38) para mayor holgura y lectura óptima
+\setstretch{1.38}
+
+% Altura de celdas en tablas
+\renewcommand{\arraystretch}{1.25}
+
+% Paleta de Colores Oficial de los Programas Icesi
+\definecolor{icesiBlue}{HTML}{5454E9}       % Azul vibrante institucional
+\definecolor{icesiOrange}{HTML}{F0681A}     % Naranja acento
+\definecolor{icesiGreen}{HTML}{4CB978}      % Verde acento
+\definecolor{icesiPurple}{HTML}{865CF0}     % Púrpura acento
+\definecolor{icesiDark}{HTML}{1A1A1A}       % Texto principal oscuro
+\definecolor{icesiMuted}{HTML}{6B7280}      % Gris metadatos
+\definecolor{icesiBorder}{HTML}{D1D5DB}     % Líneas y bordes
+\definecolor{icesiRowLine}{HTML}{E5E7EB}    % Líneas de tabla
+\definecolor{icesiLight}{HTML}{F9FAFB}      % Fondo suave
+\definecolor{codeBackground}{HTML}{F3F4F6}  % Fondo código
+
+% Configuración de Listings
+\lstdefinestyle{bashstyle}{
+    backgroundcolor=\color{codeBackground},
+    commentstyle=\color{icesiMuted}\itshape,
+    keywordstyle=\color{icesiBlue}\bfseries,
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{icesiBorder},
+    language=bash,
+    showstringspaces=false
+}
+
+\lstdefinelanguage{JavaScript}{
+  keywords={typeof, new, true, false, catch, function, return, null, switch, var, if, in, while, do, else, case, break, const, let, async, await, import, export, from, default, try, throw, class, extends, super, Boolean},
+  keywordstyle=\color{icesiBlue}\bfseries,
+  ndkeywords={document, window, localStorage, JSON, console, fetch, Promise, Response, Error, String, Date},
+  ndkeywordstyle=\color{icesiPurple}\bfseries,
+  sensitive=true,
+  comment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  commentstyle=\color{icesiMuted}\itshape,
+  stringstyle=\color{icesiOrange},
+  morestring=[b]',
+  morestring=[b]"
+}
+
+\lstdefinestyle{jsstyle}{
+    language=JavaScript,
+    backgroundcolor=\color{codeBackground},
+    commentstyle=\color{icesiMuted}\itshape,
+    keywordstyle=\color{icesiBlue}\bfseries,
+    stringstyle=\color{icesiOrange},
+    basicstyle=\ttfamily\scriptsize,
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{icesiBorder},
+    showstringspaces=false,
+    tabsize=2
+}
+
+\lstdefinelanguage{HTML5}{
+  morekeywords={DOCTYPE, html, head, meta, title, link, body, header, main, section, article, form, input, button, select, option, ul, li, span, div, h1, h2, script},
+  sensitive=false,
+  morecomment=[s]{<!--}{-->},
+  morestring=[b]"
+}
+
+\lstdefinestyle{htmlstyle}{
+    language=HTML5,
+    backgroundcolor=\color{codeBackground},
+    basicstyle=\ttfamily\scriptsize,
+    keywordstyle=\color{icesiPurple}\bfseries,
+    commentstyle=\color{icesiMuted}\itshape,
+    stringstyle=\color{icesiGreen},
+    breaklines=true,
+    frame=single,
+    rulecolor=\color{icesiBorder},
+    showstringspaces=false,
+    tabsize=2
+}
+
+\lstset{
+  inputencoding=utf8,
+  extendedchars=true,
+  literate=%
+    {á}{{\'a}}1
+    {é}{{\'e}}1
+    {í}{{\'i}}1
+    {ó}{{\'o}}1
+    {ú}{{\'u}}1
+    {Á}{{\'A}}1
+    {É}{{\'E}}1
+    {Í}{{\'I}}1
+    {Ó}{{\'O}}1
+    {Ú}{{\'U}}1
+    {ñ}{{\~n}}1
+    {Ñ}{{\~N}}1
+    {¿}{{?`}}1
+    {¡}{{!`}}1
+}
+
+% =========================================================================
+% ENCABEZADO Y PIE DE PÁGINA ESTILO PROGRAMA DE CURSO ICESI
+% =========================================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{%
+  \begin{minipage}[c]{2.8cm}
+    \includegraphics[height=0.58cm]{logo-icesi.png}
+  \end{minipage}%
+  \hspace{0.15cm}%
+  {\color{icesiBorder}\vrule width 0.8pt height 0.60cm}%
+  \hspace{0.2cm}%
+  \begin{minipage}[c]{10.5cm}
+    \fontsize{7.5}{9.5}\selectfont\textbf{\color{icesiDark}UNIVERSIDAD ICESI} \\
+    \fontsize{7}{9}\selectfont\textbf{\color{icesiDark}GUÍA DE TALLER PRÁCTICO FORMATIVO: COMPUTACIÓN EN INTERNET I} \\
+    \fontsize{6.5}{8.5}\selectfont\color{icesiMuted}Período: 2026-2 $\bullet$ NRC: 12378 / 12377 $\bullet$ Modalidad: Equipos de 2 Estudiantes
+  \end{minipage}%
+}
+\fancyhead[R]{\fontsize{7.5}{9.5}\selectfont\color{icesiMuted}Pág. \thepage\ de \pageref{LastPage}}
+
+% Barra horizontal multicolor característica del programa de curso
+\renewcommand{\headrule}{%
+  \vspace{0.08cm}%
+  \noindent%
+  \textcolor{icesiBlue}{\rule{0.60\textwidth}{1.8pt}}%
+  \textcolor{icesiOrange}{\rule{0.18\textwidth}{1.8pt}}%
+  \textcolor{icesiGreen}{\rule{0.11\textwidth}{1.8pt}}%
+  \textcolor{icesiPurple}{\rule{0.11\textwidth}{1.8pt}}%
+}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyfoot[L]{\fontsize{7.5}{9.5}\selectfont\color{icesiMuted}Computación en Internet I (09810 - TIC) $\bullet$ Arquitectura de Componentes en Vanilla JS y Promesas}
+\fancyfoot[R]{\fontsize{7.5}{9.5}\selectfont\color{icesiMuted}Universidad Icesi $\bullet$ DCSI}
+
+% =========================================================================
+% COMANDOS DE SECCIONES CON BADGE ESTILO PROGRAMA ICESI
+% =========================================================================
+\newcommand{\sectionBadge}[1]{%
+  \refstepcounter{section}%
+  \vspace{0.24cm}%
+  \noindent%
+  \colorbox{icesiBlue}{\color{white}\rule[-0.08cm]{0pt}{0.42cm}\hspace{0.16cm}\textbf{\normalsize \thesection}\hspace{0.16cm}}%
+  \hspace{0.18cm}%
+  {\fontsize{9.5}{12}\selectfont\textbf{\color{icesiDark}#1}}\\[-0.10cm]%
+  \noindent{\color{icesiDark}\rule{\textwidth}{0.8pt}}\vspace{0.10cm}%
+}
+
+\titleformat{\subsection}
+  {\color{icesiBlue}\normalfont\normalsize\bfseries}
+  {\thesubsection}{0.4em}{}
+\titlespacing*{\subsection}{0pt}{0.6ex plus 0.2ex minus .1ex}{0.2ex plus .1ex}
+
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\centering\arraybackslash}X}
+
+\begin{document}
+\deactivatequoting
+
+% =========================================================================
+% TÍTULO Y PRESENTACIÓN INICIAL (PÁGINA 1)
+% =========================================================================
+\noindent
+{\fontsize{8.5}{11}\selectfont\textbf{\color{icesiBlue}TALLER PRÁCTICO FORMATIVO: ARQUITECTURA WEB CLIENTE Y MANIPULACIÓN AVANZADA DEL DOM}}\\[0.06cm]
+{\fontsize{13}{16}\selectfont\textbf{Arquitectura Modular de Componentes en JavaScript Puro y Consumo Asíncrono con Promesas}}\\[0.10cm]
+{\color{icesiRowLine}\hrule height 0.6pt}\vspace{0.10cm}
+
+\noindent
+{\color{icesiBlue}\textbf{\rule{2.5pt}{8.5pt}}}~\textbf{\fontsize{8.5}{11}\selectfont FACULTAD DE INGENIERÍA, DISEÑO Y CIENCIAS APLICADAS} \hfill
+{\color{icesiOrange}\textbf{\rule{2.5pt}{8.5pt}}}~\textbf{\fontsize{8.5}{11}\selectfont DEPARTAMENTO DE COMPUTACIÓN Y SISTEMAS INTELIGENTES}\\[0.06cm]
+{\color{icesiRowLine}\hrule height 0.6pt}\vspace{0.10cm}
+
+% =========================================================================
+% TABLA DE INFORMACIÓN Y METADATOS (ESTILO PROGRAMA DE CURSO)
+% =========================================================================
+\noindent
+{\color{icesiBlue}\textbf{\rule{2.5pt}{8.5pt}}}~\textbf{\fontsize{8.5}{11}\selectfont INFORMACIÓN DE LA ACTIVIDAD} \hfill {\fontsize{7.5}{9}\selectfont\color{icesiMuted}\textbf{IDENTIFICACIÓN}}\\[-0.22cm]
+{\color{icesiBorder}\hrule height 0.5pt}\vspace{0.05cm}
+
+\noindent
+\small
+\begin{tabularx}{\textwidth}{>{\bfseries\color{icesiDark}\fontsize{7.5}{9.5}\selectfont}L{2.6cm}X!{\color{icesiBlue}\vrule width 0.8pt}>{\bfseries\color{icesiDark}\fontsize{7.5}{9.5}\selectfont}L{2.6cm}X}
+CÓDIGO: & 09810 - TIC & PERÍODO: & 202620 (Semestre 2026-2) \\ \hline
+\rowcolor{icesiLight}
+NRC / GRUPO: & 12378 / 12377 (Grupos 001 y 003) & CARÁCTER: & Taller Práctico Formativo Guiado (Sin Calificación Sumativa) \\ \hline
+MODALIDAD: & Equipos de 2 Estudiantes & DURACIÓN: & 2 Horas en Clase + Cierre Autónomo \\ \hline
+\rowcolor{icesiLight}
+POLÍTICA IAG: & Nivel 2: Asistencia de Consulta y Depuración & PONDERACIÓN: & Formativo (Alineación RAA 3 / Preparación Parcial 3) \\ \hline
+ESTUDIANTE 1: & \rule{4.5cm}{0.4pt} & CÓDIGO: & \rule{2.2cm}{0.4pt} \\ \hline
+\rowcolor{icesiLight}
+ESTUDIANTE 2: & \rule{4.5cm}{0.4pt} & CÓDIGO: & \rule{2.2cm}{0.4pt} \\ \hline
+\end{tabularx}
+
+\vspace{0.10cm}
+
+% =========================================================================
+% SECCIÓN 1: CONTEXTO DEL PROBLEMA Y ARQUITECTURA DE COMPONENTES
+% =========================================================================
+\sectionBadge{Contexto: El Paradigma de Componentes en Vanilla JavaScript}
+
+En las arquitecturas modernas de aplicaciones web de una sola página (\emph{Single Page Applications - SPAs}), el documento HTML inicial ya no contiene estructuras visuales fijas ni elementos estáticos como encabezados, formularios o tablas. En su lugar, el archivo \texttt{index.html} actúa exclusivamente como un \textbf{contenedor raíz vacío} (\texttt{<div id="root"></div>}) acompañado de la importación del script principal de JavaScript.
+
+Toda la interfaz gráfica, la actualización dinámica y la manipulación del árbol DOM se construyen en tiempo de ejecución mediante código JavaScript puro. Para que este código sea mantenible, escalable y profesional, adoptamos el \textbf{Paradigma de Componentes Funcionales}:
+
+\begin{itemize}[leftmargin=*,itemsep=1.5pt,topsep=2pt]
+  \item \textbf{¿Qué es un Componente en Vanilla JS?:} Es una función modular reutilizable que recibe parámetros (conocidos como \textbf{props}) y retorna un nodo del DOM completamente configurado (con sus clases, atributos, eventos y contenido de texto seguro).
+  \item \textbf{Principios de la Arquitectura Modular de Componentes:}
+    \begin{itemize}
+      \item \textbf{Props hacia abajo:} Los componentes padres pasan datos de configuración y estado hacia los componentes hijos mediante argumentos de función.
+      \item \textbf{Event Callbacks hacia arriba:} Los componentes hijos notifican acciones del usuario (como presionar "Eliminar" o enviar el formulario) invocando funciones callback pasadas en sus props (ej. \texttt{onAddTask}, \texttt{onDeleteTask}).
+      \item \textbf{Estado Centralizado (State):} El componente raíz (\texttt{App}) mantiene la única fuente de verdad de la aplicación (el array de tareas, el estado de carga y los mensajes de error). Cuando el estado cambia, se dispara una actualización dinámica de la interfaz.
+    \end{itemize}
+  \item \textbf{Consumo Asíncrono con Promesas (Service Layer):} El acceso a la red se encapsula en un módulo de servicio independiente (\texttt{taskService.js}). Cada operación HTTP (\texttt{GET}, \texttt{POST}, \texttt{DELETE}) retorna una \textbf{Promesa} que transita de forma determinística por sus tres estados:
+    \begin{enumerate}[label=\alph*)]
+      \item \textbf{Pending:} La petición está en vuelo; el componente \texttt{App} renderiza el componente \texttt{LoadingSpinner}.
+      \item \textbf{Fulfilled:} La Promesa se resuelve con éxito; se actualiza la lista de tareas en el estado y se dibuja el componente \texttt{TaskList}.
+      \item \textbf{Rejected:} La red o el servidor fallaron; se captura el motivo del rechazo en el bloque \texttt{catch} y se renderiza el componente \texttt{ErrorAlert}.
+    \end{enumerate}
+\end{itemize}
+
+\begin{tcolorbox}[colback=icesiBlue!10,colframe=icesiBlue,arc=3pt,title=\textbf{Propósito Formativo del Taller}]
+\fontsize{7.5}{9.5}\selectfont
+Aprender a construir una aplicación web completa utilizando \textbf{Arquitectura de Componentes en Vanilla JS} y manipulación programática del DOM, partiendo de un HTML con una sola etiqueta (\texttt{<div id="root"></div>}). Desarrollaremos una suite modular de componentes (Header, TaskForm, TaskItem, TaskList, LoadingSpinner, ErrorAlert y App) y nos conectaremos a un servidor Express sencillo que implementa operaciones \texttt{GET}, \texttt{POST} y \texttt{DELETE} mediante \textbf{Promesas} con \texttt{fetch} y \texttt{async / await}.
+\end{tcolorbox}
+
+% =========================================================================
+% SECCIÓN 2: LA API DE SOPORTE (CAJA NEGRA)
+% =========================================================================
+\sectionBadge{La API de Soporte: Servidor Express como Caja Negra}
+
+Para abastecer nuestra aplicación frontend con datos reales, utilizaremos el servidor Express provisto por la cátedra. En este curso \textbf{no programamos el backend}; la API actúa como una caja negra en el puerto \texttt{3001} que maneja una lista de tareas en memoria.
+
+\begin{figure}[h!]
+\centering
+\begin{lstlisting}[style=bashstyle]
+  +---------------------------------------------------------------------------------------------------+
+  |                                   FRONTEND: VANILLA JS COMPONENTS                                 |
+  |                                       http://localhost:3000                                       |
+  |                                                                                                   |
+  |   index.html: <div id="root"></div>                                                               |
+  |       |                                                                                           |
+  |       v                                                                                           |
+  |     App.js (Estado: tasks, loading, error)                                                        |
+  |       |                                                                                           |
+  |       +---> Header.js          +---> LoadingSpinner.js                                            |
+  |       +---> TaskForm.js        +---> ErrorAlert.js                                                |
+  |       +---> TaskList.js ----> TaskItem.js (con boton Eliminar)                                    |
+  |       |                                                                                           |
+  |       +---> taskService.js (Consumo con Promesas: fetch + async/await)                            |
+  +---------------------------------------------------------------------------------------------------+
+                  |                                 |                                 |
+        1. GET /api/tasks                 2. POST /api/tasks                3. DELETE /api/tasks/:id
+        (Listar tareas)                   (Crear nueva tarea)               (Eliminar tarea por ID)
+                  |                                 |                                 |
+                  v                                 v                                 v
+  +---------------------------------------------------------------------------------------------------+
+  |                                   API EXPRESS EN PUERTO 3001                                      |
+  |                             https://github.com/Compu-1/api-express-promesas-taskflow               |
+  +---------------------------------------------------------------------------------------------------+
+\end{lstlisting}
+\end{figure}
+
+\subsection{Código Completo del Servidor (server.js)}
+A continuación se presenta el código del backend para su lectura y contexto:
+
+\begin{lstlisting}[style=jsstyle]
+import express from 'express';
+import cors from 'cors';
+
+const app = express();
+const PORT = 3001;
+
+app.use(cors());          // Habilita peticiones cruzadas desde el frontend en localhost:3000
+app.use(express.json());  // Middleware para interpretar cuerpos JSON en POST
+
+// Lista de tareas inicial en memoria
+let tareas = [
+  { id: 1, title: "Comprender la estructura basica de HTML y CSS", completed: true },
+  { id: 2, title: "Aprender a seleccionar y modificar elementos del DOM", completed: true },
+  { id: 3, title: "Entender que es una Promesa y sus tres estados en JS", completed: false },
+  { id: 4, title: "Consumir una API externa usando fetch y async/await", completed: false },
+  { id: 5, title: "Renderizar dinamicamente los datos en la interfaz web", completed: false }
+];
+
+// 1. GET /api/tasks: Obtener todas las tareas
+app.get('/api/tasks', (req, res) => res.json(tareas));
+
+// 2. POST /api/tasks: Registrar nueva tarea
+app.post('/api/tasks', (req, res) => {
+  const { title } = req.body;
+  if (!title || !title.trim()) return res.status(400).json({ error: "Titulo requerido" });
+  const nuevaTarea = { id: Date.now(), title: title.trim(), completed: false };
+  tareas.push(nuevaTarea);
+  res.status(201).json(nuevaTarea);
+});
+
+// 3. DELETE /api/tasks/:id: Eliminar tarea por ID
+app.delete('/api/tasks/:id', (req, res) => {
+  const id = req.params.id;
+  tareas = tareas.filter((t) => String(t.id) !== String(id));
+  res.json({ message: "Tarea eliminada exitosamente", id });
+});
+
+app.listen(PORT, () => console.log(`Servidor activo en http://localhost:${PORT}`));
+\end{lstlisting}
+
+% =========================================================================
+% SECCIÓN 3: PROCEDIMIENTO EXPERIMENTAL PASO A PASO
+% =========================================================================
+\sectionBadge{Procedimiento Experimental Paso a Paso: Construyendo el Front}
+
+A continuación desarrollaremos la aplicación web estructurada modularmente en componentes funcionales.
+
+\subsection{Fase 1: Puesta en Marcha de la API de Soporte (5 Minutos)}
+En una terminal, clone e inicie el servidor de la cátedra:
+
+\begin{lstlisting}[style=bashstyle]
+git clone https://github.com/Compu-1/api-express-promesas-taskflow.git
+cd api-express-promesas-taskflow
+npm install && npm start
+\end{lstlisting}
+
+Verifique en su navegador que \texttt{http://localhost:3001/api/tasks} responde con el JSON de tareas. Mantenga esta terminal abierta.
+
+\subsection{Fase 2: Estructura del Proyecto y el HTML Mínimo (10 Minutos)}
+Abra una \textbf{segunda terminal} en una ubicación independiente para crear el proyecto cliente:
+
+\begin{lstlisting}[style=bashstyle]
+mkdir taskflow-components && cd taskflow-components
+mkdir -p css js/services js/components
+touch index.html css/styles.css js/main.js js/services/taskService.js
+touch js/components/Header.js js/components/TaskForm.js js/components/TaskItem.js
+touch js/components/TaskList.js js/components/LoadingSpinner.js js/components/ErrorAlert.js js/components/App.js
+\end{lstlisting}
+
+Edite \texttt{index.html}. Observe que el cuerpo del documento \textbf{solo tiene la etiqueta raíz \texttt{<div id="root"></div>}} y el enlace al script:
+
+\begin{lstlisting}[style=htmlstyle]
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow - Arquitectura de Componentes en Vanilla JS</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Contenedor Raiz Unico: Toda la UI se crea dinamicamente via JS -->
+  <div id="root"></div>
+
+  <!-- Punto de entrada de la aplicacion -->
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
+\end{lstlisting}
+
+Agregue los estilos visuales en \texttt{css/styles.css}:
+
+\begin{lstlisting}[style=bashstyle]
+/* css/styles.css: Paleta moderna institucional y estados de componentes */
+:root { --primario: #5454E9; --exito: #4CB978; --error: #EF4444; --fondo: #F3F4F6; }
+body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: var(--fondo); display: flex; justify-content: center; padding: 2.5rem 1rem; margin: 0; }
+#root { width: 100%; max-width: 560px; }
+.app-container { background: white; padding: 2.2rem; border-radius: 12px; box-shadow: 0 4px 18px rgba(0,0,0,0.08); }
+.app-header h1 { margin: 0 0 0.3rem 0; color: #1F2937; font-size: 1.55rem; }
+.app-subtitle { margin: 0; color: #6B7280; font-size: 0.88rem; }
+.task-form { display: flex; gap: 0.5rem; margin: 1.5rem 0 1rem 0; }
+.task-form input { flex: 1; padding: 0.7rem 0.9rem; border: 1.5px solid #D1D5DB; border-radius: 8px; font-size: 0.9rem; }
+.task-form input:focus { outline: none; border-color: var(--primario); }
+.btn-add { background: var(--exito); color: white; border: none; padding: 0.7rem 1.2rem; border-radius: 8px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.btn-add:hover { background: #3EA668; }
+.btn-refresh { background: var(--primario); color: white; border: none; padding: 0.65rem 1.2rem; border-radius: 8px; font-weight: 600; font-size: 0.9rem; cursor: pointer; width: 100%; margin-bottom: 1rem; }
+.btn-refresh:hover { background: #3E3EC8; }
+.btn-add:disabled, .btn-refresh:disabled { background: #9CA3AF; cursor: not-allowed; }
+.loading-container { display: flex; align-items: center; justify-content: center; gap: 0.6rem; padding: 0.8rem 0; color: #4B5563; font-size: 0.88rem; }
+.spinner { width: 18px; height: 18px; border: 2.5px solid #E5E7EB; border-top-color: var(--primario); border-radius: 50%; animation: girar 0.8s linear infinite; }
+@keyframes girar { to { transform: rotate(360deg); } }
+.error-alert { background: #FEE2E2; color: #991B1B; padding: 0.85rem; border-radius: 8px; font-size: 0.88rem; border: 1px solid #FCA5A5; margin-bottom: 1rem; display: flex; justify-content: space-between; align-items: center; gap: 0.5rem; }
+.btn-retry { background: #DC2626; color: white; border: none; padding: 0.3rem 0.7rem; border-radius: 6px; font-size: 0.8rem; cursor: pointer; }
+.task-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+.task-item { display: flex; align-items: center; justify-content: space-between; padding: 0.75rem 0.9rem; background: #F9FAFB; border: 1px solid #E5E7EB; border-radius: 8px; gap: 0.8rem; }
+.task-title { flex: 1; color: #1F2937; }
+.task-item.completed .task-title { text-decoration: line-through; color: #9CA3AF; }
+.task-actions { display: flex; align-items: center; gap: 0.5rem; }
+.badge { font-size: 0.72rem; padding: 0.2rem 0.45rem; border-radius: 12px; font-weight: 600; white-space: nowrap; }
+.badge-completed { background: #D1FAE5; color: #065F46; }
+.badge-pending { background: #FEF3C7; color: #92400E; }
+.btn-delete { background: transparent; border: 1px solid #FCA5A5; color: var(--error); border-radius: 6px; padding: 0.25rem 0.55rem; font-size: 0.76rem; cursor: pointer; font-weight: 600; }
+.btn-delete:hover { background: #FEE2E2; }
+.empty-message { text-align: center; color: #9CA3AF; padding: 1.5rem 0; }
+\end{lstlisting}
+
+\subsection{Fase 3: Módulo de Servicio con Promesas (js/services/taskService.js) (15 Minutos)}
+Encapsulamos las llamadas \texttt{fetch} que retornan Promesas en un módulo reutilizable:
+
+\begin{lstlisting}[style=jsstyle]
+// js/services/taskService.js: Capa de comunicacion asincrona con la API
+const API_URL = 'http://localhost:3001/api/tasks';
+
+/**
+ * 1. GET: Retorna una Promesa que resuelve en el array de tareas
+ */
+export async function getTasks() {
+  const response = await fetch(API_URL);
+  if (!response.ok) {
+    throw new Error(`Fallo al consultar tareas. Codigo HTTP: ${response.status}`);
+  }
+  return await response.json(); // Segunda Promesa: deserializa JSON
+}
+
+/**
+ * 2. POST: Retorna una Promesa que resuelve en el nuevo objeto tarea
+ */
+export async function createTask(title) {
+  const response = await fetch(API_URL, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title: title })
+  });
+  if (!response.ok) {
+    throw new Error(`Fallo al crear la tarea. Codigo HTTP: ${response.status}`);
+  }
+  return await response.json();
+}
+
+/**
+ * 3. DELETE: Retorna una Promesa que confirma la eliminacion
+ */
+export async function deleteTask(id) {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: 'DELETE'
+  });
+  if (!response.ok) {
+    throw new Error(`Fallo al eliminar la tarea. Codigo HTTP: ${response.status}`);
+  }
+  return await response.json();
+}
+\end{lstlisting}
+
+\subsection{Fase 4: Componentes Funcionales de Presentación (30 Minutos)}
+Construiremos cada componente como una función pura que recibe \texttt{props} y retorna un nodo del DOM manipulado de forma segura con \texttt{createElement} y \texttt{textContent}.
+
+\subsubsection{Componente 1: Header (js/components/Header.js)}
+\begin{lstlisting}[style=jsstyle]
+export function Header({ title, subtitle }) {
+  const header = document.createElement('header');
+  header.className = 'app-header';
+
+  const h1 = document.createElement('h1');
+  h1.textContent = title;
+
+  const p = document.createElement('p');
+  p.className = 'app-subtitle';
+  p.textContent = subtitle;
+
+  header.append(h1, p);
+  return header;
+}
+\end{lstlisting}
+
+\subsubsection{Componente 2: TaskForm (js/components/TaskForm.js)}
+Emite un evento callback \texttt{onAddTask} al enviar el formulario:
+
+\begin{lstlisting}[style=jsstyle]
+export function TaskForm({ onAddTask, disabled }) {
+  const form = document.createElement('form');
+  form.className = 'task-form';
+
+  const input = document.createElement('input');
+  input.type = 'text';
+  input.placeholder = 'Escribe una nueva tarea...';
+  input.required = true;
+  input.disabled = Boolean(disabled);
+
+  const button = document.createElement('button');
+  button.type = 'submit';
+  button.className = 'btn-add';
+  button.textContent = 'Agregar Tarea';
+  button.disabled = Boolean(disabled);
+
+  form.append(input, button);
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = input.value.trim();
+    if (!value) return;
+    onAddTask(value); // Callback al componente padre (App)
+    input.value = '';
+  });
+
+  return form;
+}
+\end{lstlisting}
+
+\subsubsection{Componente 3: TaskItem (js/components/TaskItem.js)}
+Recibe una tarea y el callback \texttt{onDeleteTask}:
+
+\begin{lstlisting}[style=jsstyle]
+export function TaskItem({ task, onDeleteTask }) {
+  const li = document.createElement('li');
+  li.className = `task-item ${task.completed ? 'completed' : ''}`;
+
+  const span = document.createElement('span');
+  span.className = 'task-title';
+  span.textContent = task.title;
+
+  const actions = document.createElement('div');
+  actions.className = 'task-actions';
+
+  const badge = document.createElement('span');
+  badge.className = `badge ${task.completed ? 'badge-completed' : 'badge-pending'}`;
+  badge.textContent = task.completed ? 'Completada' : 'Pendiente';
+
+  const btnDelete = document.createElement('button');
+  btnDelete.className = 'btn-delete';
+  btnDelete.textContent = 'Eliminar';
+  btnDelete.onclick = () => onDeleteTask(task.id); // Callback al padre
+
+  actions.append(badge, btnDelete);
+  li.append(span, actions);
+  return li;
+}
+\end{lstlisting}
+
+\subsubsection{Componente 4: TaskList (js/components/TaskList.js)}
+Recorre el array de tareas mapeando cada elemento a un \texttt{TaskItem}:
+
+\begin{lstlisting}[style=jsstyle]
+import { TaskItem } from './TaskItem.js';
+
+export function TaskList({ tasks, onDeleteTask }) {
+  const ul = document.createElement('ul');
+  ul.className = 'task-list';
+
+  if (!tasks || tasks.length === 0) {
+    const empty = document.createElement('li');
+    empty.className = 'empty-message';
+    empty.textContent = 'No hay tareas registradas en la API.';
+    ul.appendChild(empty);
+    return ul;
+  }
+
+  tasks.forEach((task) => {
+    ul.appendChild(TaskItem({ task, onDeleteTask }));
+  });
+
+  return ul;
+}
+\end{lstlisting}
+
+\subsubsection{Componente 5 y 6: LoadingSpinner y ErrorAlert}
+\begin{lstlisting}[style=jsstyle]
+// js/components/LoadingSpinner.js: Muestra el estado PENDING de la Promesa
+export function LoadingSpinner({ message = 'Consultando API remota...' }) {
+  const container = document.createElement('div');
+  container.className = 'loading-container';
+
+  const spinner = document.createElement('div');
+  spinner.className = 'spinner';
+
+  const span = document.createElement('span');
+  span.textContent = message;
+
+  container.append(spinner, span);
+  return container;
+}
+\end{lstlisting}
+
+\begin{lstlisting}[style=jsstyle]
+// js/components/ErrorAlert.js: Muestra el estado REJECTED de la Promesa
+export function ErrorAlert({ message, onRetry }) {
+  const alert = document.createElement('div');
+  alert.className = 'error-alert';
+
+  const text = document.createElement('span');
+  text.textContent = message;
+  alert.appendChild(text);
+
+  if (onRetry) {
+    const btnRetry = document.createElement('button');
+    btnRetry.className = 'btn-retry';
+    btnRetry.textContent = 'Reintentar';
+    btnRetry.onclick = onRetry;
+    alert.appendChild(btnRetry);
+  }
+
+  return alert;
+}
+\end{lstlisting}
+
+\subsection{Fase 5: Componente Raíz y Orquestador de Estado (js/components/App.js) (25 Minutos)}
+El componente \texttt{App} administra el estado centralizado, reacciona a los eventos de los hijos y consume el servicio asíncrono controlando los estados de las Promesas:
+
+\begin{lstlisting}[style=jsstyle]
+// js/components/App.js: Componente Raiz con Estado y Orquestacion
+import { getTasks, createTask, deleteTask } from '../services/taskService.js';
+import { Header } from './Header.js';
+import { TaskForm } from './TaskForm.js';
+import { TaskList } from './TaskList.js';
+import { LoadingSpinner } from './LoadingSpinner.js';
+import { ErrorAlert } from './ErrorAlert.js';
+
+export function App() {
+  const container = document.createElement('main');
+  container.className = 'app-container';
+
+  // 1. Estado centralizado de la aplicacion
+  const state = {
+    tasks: [],
+    loading: false,
+    loadingMessage: '',
+    error: null
+  };
+
+  // 2. Funcion de renderizado dinamico (construye el DOM segun el estado actual)
+  function render() {
+    container.innerHTML = ''; // Limpia el arbol anterior para redibujar
+
+    // Encabezado
+    container.appendChild(Header({
+      title: 'TaskFlow Components',
+      subtitle: 'Arquitectura de Componentes en Vanilla JS y Promesas (GET, POST, DELETE)'
+    }));
+
+    // Formulario de Creacion (POST)
+    container.appendChild(TaskForm({
+      disabled: state.loading,
+      onAddTask: handleAddTask
+    }));
+
+    // Indicador de Carga (Estado PENDING)
+    if (state.loading) {
+      container.appendChild(LoadingSpinner({ message: state.loadingMessage }));
+    }
+
+    // Alerta de Error (Estado REJECTED)
+    if (state.error) {
+      container.appendChild(ErrorAlert({
+        message: state.error,
+        onRetry: handleLoadTasks
+      }));
+    }
+
+    // Boton de refresco manual
+    const refreshBtn = document.createElement('button');
+    refreshBtn.className = 'btn-refresh';
+    refreshBtn.textContent = 'Refrescar Lista desde API';
+    refreshBtn.disabled = state.loading;
+    refreshBtn.onclick = handleLoadTasks;
+    container.appendChild(refreshBtn);
+
+    // Lista de Tareas (Estado FULFILLED)
+    container.appendChild(TaskList({
+      tasks: state.tasks,
+      onDeleteTask: handleDeleteTask
+    }));
+  }
+
+  // 3. Manejadores Asincronos de Eventos (Consumo de Promesas)
+  async function handleLoadTasks() {
+    state.loading = true;
+    state.loadingMessage = 'Consultando API remota... (Estado: PENDING)';
+    state.error = null;
+    render();
+
+    try {
+      state.tasks = await getTasks(); // Promesa GET resuelta (FULFILLED)
+    } catch (err) {
+      state.error = `Error al consultar la API: ${err.message}. Verifica el servidor en el puerto 3001.`;
+    } finally {
+      state.loading = false;
+      render();
+    }
+  }
+
+  async function handleAddTask(title) {
+    state.loading = true;
+    state.loadingMessage = `Guardando "${title}" en la API... (Estado: PENDING)`;
+    state.error = null;
+    render();
+
+    try {
+      const nueva = await createTask(title); // Promesa POST resuelta (FULFILLED)
+      state.tasks.push(nueva);
+    } catch (err) {
+      state.error = `Error al crear tarea: ${err.message}`;
+    } finally {
+      state.loading = false;
+      render();
+    }
+  }
+
+  async function handleDeleteTask(id) {
+    state.loading = true;
+    state.loadingMessage = `Eliminando tarea ID ${id}... (Estado: PENDING)`;
+    state.error = null;
+    render();
+
+    try {
+      await deleteTask(id); // Promesa DELETE resuelta (FULFILLED)
+      state.tasks = state.tasks.filter((t) => String(t.id) !== String(id));
+    } catch (err) {
+      state.error = `Error al eliminar tarea: ${err.message}`;
+    } finally {
+      state.loading = false;
+      render();
+    }
+  }
+
+  // Carga inicial automatica de datos
+  handleLoadTasks();
+
+  return container;
+}
+\end{lstlisting}
+
+\subsection{Fase 6: Montaje en el Punto de Entrada (js/main.js) (5 Minutos)}
+En \texttt{js/main.js}, importamos \texttt{App} y la insertamos en el contenedor raíz \texttt{\#root}:
+
+\begin{lstlisting}[style=jsstyle]
+// js/main.js: Punto de entrada de la aplicacion
+import { App } from './components/App.js';
+
+const root = document.querySelector('#root');
+root.appendChild(App());
+\end{lstlisting}
+
+\subsection{Fase 7: Ejecución y Experimentación en Vivo (15 Minutos)}
+Inicie el servidor estático del frontend en \texttt{http://localhost:3000}:
+
+\begin{lstlisting}[style=bashstyle]
+npx live-server --port=3000
+\end{lstlisting}
+
+Realice los siguientes **4 experimentos guiados en vivo**:
+
+\begin{enumerate}[leftmargin=*,itemsep=3pt,topsep=2pt]
+  \item \textbf{Experimento 1: Inspección del DOM Vacío vs. Renderizado Dinámico}
+    \begin{itemize}
+      \item En su navegador, abra DevTools (\texttt{F12}) y seleccione la pestaña \textbf{Elements (Elementos)}.
+      \item Abra el archivo fuente original \texttt{index.html} y compruebe que solo contiene \texttt{<div id="root"></div>}.
+      \item Observe en el árbol del inspector cómo JavaScript construyó toda la jerarquía de elementos (\texttt{header}, \texttt{form}, \texttt{button}, \texttt{ul}, \texttt{li}) dentro de \texttt{\#root}.
+    \end{itemize}
+  \item \textbf{Experimento 2: Ciclo de Vida de Promesa en Creación (POST)}
+    \begin{itemize}
+      \item Escriba una tarea en el input del componente \texttt{TaskForm} y haga clic en "Agregar Tarea".
+      \item Observe cómo el componente \texttt{App} cambia inmediatamente su estado a \texttt{loading: true}, renderizando el \texttt{LoadingSpinner} (\textbf{Estado Pending}).
+      \item Al resolver la Promesa, la API entrega el ID asignado, el componente añade la tarea a \texttt{state.tasks} y re-renderiza la lista (\textbf{Estado Fulfilled}).
+    \end{itemize}
+  \item \textbf{Experimento 3: Flujo de Event Callbacks en Eliminación (DELETE)}
+    \begin{itemize}
+      \item Haga clic en el botón "Eliminar" de un elemento de la lista.
+      \item Observe cómo el componente hijo \texttt{TaskItem} notifica el evento al padre \texttt{App} mediante \texttt{onDeleteTask(id)}.
+      \item Al completarse la Promesa \texttt{DELETE}, el item desaparece de la vista sin recargar la página.
+    \end{itemize}
+  \item \textbf{Experimento 4: Estado REJECTED y Resiliencia con ErrorAlert}
+    \begin{itemize}
+      \item En la terminal de Express, detenga el servidor con \texttt{Ctrl + C}.
+      \item En el navegador, intente agregar una tarea o presione el botón de refresco.
+      \item Compruebe que la Promesa de red falla, la ejecución salta al bloque \texttt{catch} y el componente \texttt{ErrorAlert} se dibuja con el botón de "Reintentar".
+      \item Reinicie el servidor con \texttt{npm start}, presione "Reintentar" y verifique la recuperación transparente de la aplicación.
+    \end{itemize}
+\end{enumerate}
+
+% =========================================================================
+% SECCIÓN 4: CUESTIONARIO DE ANÁLISIS CONCEPTUAL
+% =========================================================================
+\sectionBadge{Cuestionario de Análisis Conceptual y Discusión Técnica}
+
+Responda en pareja las siguientes preguntas conceptuales:
+
+\begin{enumerate}[leftmargin=*,itemsep=4pt,topsep=2pt]
+  \item \textbf{Arquitectura de Componentes frente a HTML tradicional:} ¿Cuáles son las ventajas de tener un archivo \texttt{index.html} que solo contenga \texttt{<div id="root"></div>} y generar la interfaz mediante componentes funcionales en JavaScript? ¿Cómo facilita esto la modularidad, depuración y mantenimiento del código frente a un único script monolítico?
+  \item \textbf{Flujo Unidireccional de Datos (Props y Callbacks):} Explique cómo viajan los datos y las acciones entre el componente \texttt{App}, \texttt{TaskList} y \texttt{TaskItem}:
+    \begin{itemize}
+      \item ¿Cómo recibe \texttt{TaskItem} la información de la tarea que debe pintar?
+      \item ¿Cómo le avisa \texttt{TaskItem} al componente \texttt{App} que el usuario presionó el botón de eliminar?
+    \end{itemize}
+  \item \textbf{Separación de Responsabilidades (Service Layer vs. Componentes):} ¿Por qué es una buena práctica de ingeniería extraer las funciones \texttt{fetch} al archivo \texttt{taskService.js} en lugar de escribir \texttt{fetch()} directamente dentro de cada componente visual?
+  \item \textbf{Manejo de Estados Asíncronos en la UI:} Describa qué componentes visuales se montan o desmontan del DOM según los tres estados de la Promesa:
+    \begin{itemize}
+      \item En estado \textbf{Pending}:
+      \item En estado \textbf{Fulfilled}:
+      \item En estado \textbf{Rejected}:
+    \end{itemize}
+\end{enumerate}
+
+% =========================================================================
+% SECCIÓN 5: RÚBRICA DE EVALUACIÓN MODULARIZADA
+% =========================================================================
+\sectionBadge{Rúbrica de Autoevaluación Formativa Guiada (Escala 0.0 a 5.0)}
+
+\begin{table}[h!]
+\centering
+\fontsize{7}{9}\selectfont
+\begin{tabularx}{\textwidth}{L{2.5cm}X X X C{1.1cm}}
+\toprule
+\textbf{Criterio Evaluado} & \textbf{Excelente (4.5 -- 5.0)} & \textbf{Aceptable (3.0 -- 4.4)} & \textbf{Insuficiente (0.0 -- 2.9)} & \textbf{Puntaje} \\
+\midrule
+\textbf{1. Arquitectura de Componentes y DOM} &
+Estructura la aplicación en componentes funcionales modulares a partir de un único \texttt{<div id="root"></div>}, manipulando el DOM con \texttt{createElement} y \texttt{textContent}. &
+Implementa componentes pero recurre a estructuras HTML estáticas fuera de \texttt{\#root} o abusa de \texttt{innerHTML}. &
+No modulariza en componentes o mantiene toda la vista codificada rígidamente en el archivo HTML. &
+\textbf{1.5 pts} \\
+\rowcolor{icesiLight}
+\textbf{2. Consumo de Promesas (Service Layer)} &
+Implementa el servicio \texttt{taskService.js} con \texttt{fetch} y \texttt{async/await} para \texttt{GET}, \texttt{POST} y \texttt{DELETE}, gestionando \texttt{try/catch/finally}. &
+Consume las Promesas pero escribe las llamadas directamente en los componentes sin capa de servicio. &
+Errores de sintaxis en el consumo de red o incapacidad de procesar las respuestas de la API. &
+\textbf{1.5 pts} \\
+\textbf{3. Manejo de Estado y Eventos (Props / Callbacks)} &
+El componente \texttt{App} centraliza el estado y orquesta el renderizado dinámico, pasando props y manejando callbacks correctamente. &
+Maneja el estado pero la actualización visual del DOM presenta inconsistencias al crear o eliminar elementos. &
+La interfaz no responde a eventos o colapsa ante cambios en los datos. &
+\textbf{1.0 pt} \\
+\rowcolor{icesiLight}
+\textbf{4. Discusión Conceptual y Resiliencia} &
+Explica con precisión el flujo unidireccional de datos y demuestra la captura de errores en \texttt{ErrorAlert} al apagar la API. &
+Comprende la estructura de componentes pero tiene dudas sobre la relación entre props y callbacks. &
+No responde el cuestionario o desconoce el funcionamiento asíncrono de las Promesas. &
+\textbf{1.0 pt} \\
+\bottomrule
+\multicolumn{4}{r}{\textbf{PUNTAJE FORMATIVO TOTAL:}} & \textbf{5.0 pts} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+% =========================================================================
+% SECCIÓN 6: INSTRUCCIONES DE VERIFICACIÓN
+% =========================================================================
+\sectionBadge{Instrucciones de Verificación y Cierre en Aula}
+
+Al finalizar la sesión práctica, presente ante el profesor o monitor:
+\begin{enumerate}[leftmargin=*,itemsep=2pt,topsep=2pt]
+  \item Inspección en DevTools mostrando que el archivo \texttt{index.html} solo tiene \texttt{<div id="root"></div>} y que toda la UI fue construida mediante componentes JavaScript.
+  \item Demostración de creación de tarea (\texttt{POST}) y eliminación (\texttt{DELETE}) con actualización dinámica de la interfaz.
+  \item Demostración de resiliencia: apagar la API y mostrar la aparición del componente \texttt{ErrorAlert} con la opción de reintentar.
+\end{enumerate}
+
+\end{document}

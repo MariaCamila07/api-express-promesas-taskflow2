@@ -1,0 +1,14 @@
+{
+  "name": "api-express-tareas",
+  "version": "1.0.0",
+  "description": "API sencilla con Express para suministrar una lista de tareas definida al frontend",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}
