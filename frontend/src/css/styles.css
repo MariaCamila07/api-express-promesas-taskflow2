@@ -1,0 +1,165 @@
+/* Variables y estados. JavaScript solo conmuta clases, el CSS decide como se ve. */
+:root {
+  --primario: #5454E9;
+  --exito: #4CB978;
+  --error: #EF4444;
+  --fondo: #F3F4F6;
+  --texto: #1F2937;
+  --muted: #6B7280;
+  --borde: #E5E7EB;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 2.5rem 1rem;
+  display: flex;
+  justify-content: center;
+  background: var(--fondo);
+  color: var(--texto);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+.app-container {
+  width: 100%;
+  max-width: 560px;
+  padding: 2rem;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.app-header h1 { margin: 0; font-size: 1.55rem; }
+
+.badge {
+  padding: 0.25rem 0.7rem;
+  border-radius: 999px;
+  background: #EEF2FF;
+  color: var(--primario);
+  font-size: 0.8rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+/* Formulario */
+.task-form { display: flex; gap: 0.5rem; margin: 1.5rem 0 1rem; }
+.task-form input {
+  flex: 1;
+  padding: 0.7rem 0.9rem;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 8px;
+  font-size: 0.95rem;
+}
+.task-form input:focus-visible { outline: none; border-color: var(--primario); }
+
+.btn-primary {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: 8px;
+  background: var(--primario);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.btn-primary:hover { background: #3E3EC8; }
+.btn-primary:focus-visible { outline: 3px solid #C7D2FE; outline-offset: 2px; }
+.btn-primary:disabled { background: #9CA3AF; cursor: not-allowed; }
+
+/* Filtros */
+.filters { display: flex; gap: 0.4rem; margin-bottom: 1rem; }
+.filter-btn {
+  padding: 0.4rem 0.9rem;
+  border: 1.5px solid #D1D5DB;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--muted);
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.filter-btn:hover { border-color: var(--primario); color: var(--primario); }
+.filter-btn:focus-visible { outline: 3px solid #C7D2FE; outline-offset: 2px; }
+.filter-btn.active { background: var(--primario); border-color: var(--primario); color: #fff; }
+
+/* Zona de estado */
+.status:empty { display: none; }
+.status { margin-bottom: 1rem; }
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0;
+  color: #4B5563;
+  font-size: 0.9rem;
+}
+.spinner {
+  width: 18px;
+  height: 18px;
+  border: 2.5px solid var(--borde);
+  border-top-color: var(--primario);
+  border-radius: 50%;
+  animation: girar 0.8s linear infinite;
+}
+@keyframes girar { to { transform: rotate(360deg); } }
+
+.error-alert {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.8rem 0.9rem;
+  border: 1px solid #FCA5A5;
+  border-radius: 8px;
+  background: #FEE2E2;
+  color: #991B1B;
+  font-size: 0.88rem;
+}
+.btn-retry {
+  padding: 0.3rem 0.7rem;
+  border: none;
+  border-radius: 6px;
+  background: #DC2626;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+/* Lista */
+.task-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.5rem; }
+
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.9rem;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  background: #F9FAFB;
+}
+.task-check { width: 1.1rem; height: 1.1rem; accent-color: var(--exito); cursor: pointer; }
+.task-title { flex: 1; overflow-wrap: anywhere; }
+.task-item.is-completed .task-title { text-decoration: line-through; color: #9CA3AF; }
+
+.btn-delete {
+  padding: 0.2rem 0.6rem;
+  border: 1px solid #FCA5A5;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--error);
+  font-size: 1rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+.btn-delete:hover { background: #FEE2E2; }
+.btn-delete:focus-visible { outline: 3px solid #FECACA; outline-offset: 2px; }
+
+.empty-message { padding: 1.5rem 0; text-align: center; color: #9CA3AF; }

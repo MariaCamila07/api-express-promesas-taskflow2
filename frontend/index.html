@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TaskFlow - Gestor de Tareas</title>
+  <link rel="stylesheet" href="src/css/styles.css">
+</head>
+<body>
+  <main class="app-container">
+    <header class="app-header">
+      <h1>TaskFlow</h1>
+      <span id="task-counter" class="badge">0 pendientes</span>
+    </header>
+
+    <form id="task-form" class="task-form">
+      <input type="text" id="task-input" placeholder="Escribe una tarea pendiente..."
+             aria-label="Nueva tarea" maxlength="200" autocomplete="off" required>
+      <button type="submit" id="task-submit" class="btn-primary">Agregar</button>
+    </form>
+
+    <div class="filters" id="filters" role="group" aria-label="Filtrar tareas">
+      <button type="button" class="filter-btn active" data-filter="all">Todas</button>
+      <button type="button" class="filter-btn" data-filter="pending">Pendientes</button>
+      <button type="button" class="filter-btn" data-filter="completed">Completadas</button>
+    </div>
+
+    <!-- Zona de estado: "Cargando..." o mensaje de error (la llena dom.js) -->
+    <div id="status" class="status" role="status" aria-live="polite"></div>
+
+    <ul id="task-list" class="task-list"></ul>
+  </main>
+
+  <script type="module" src="src/js/app.js"></script>
+</body>
+</html>
